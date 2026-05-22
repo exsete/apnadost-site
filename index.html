@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apnadost.in | Your Sports Champion Partner</title>
+    <link rel="icon" href="assets/images/AD_Logo.gif" type="image/gif">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --charcoal: #121212;
+            --forest: #0e241f;
+            --forest-glow: #1a3d35;
+            --accent-blue: #3b82f6;
+
+            /* Lighter high positive energy green background used across pages 1, 3, and 4 */
+            --light-energy-bg: #f0f7f4;
+            --light-energy-card: #ffffff;
+            --light-energy-text: #0f172a;
+
+            /* Responsive typography base sizes for across devices */
+            font-size: 13px;
+        }
+
+        @media (min-width: 640px) {
+            :root {
+                font-size: 14px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            :root {
+                font-size: 16px;
+            }
+        }
+
+        @media (min-width: 1536px) {
+            :root {
+                font-size: 18px;
+            }
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            /* Desktop default */
+            background-color: var(--charcoal);
+            font-family: 'Inter', sans-serif;
+            color: white;
+        }
+
+        .page-wrapper {
+            display: flex;
+            width: 400vw;
+            height: 100vh;
+            transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1);
+        }
+
+        section {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            padding-bottom: 60px;
+        }
+
+        /* Logo container background updated back to --forest, with padding set to 2px 15px */
+        .header-logo-container {
+            background-color: var(--forest);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 2px 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .punchline {
+            font-weight: 300;
+            text-transform: uppercase;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+        }
+
+        .dost-accent {
+            font-style: italic;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        /* Page 2: Translucent background layer restored to full opacity original golf course image */
+        .page2-bg-translucent {
+            position: absolute;
+            inset: 0;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            opacity: 1.0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .forest-wash {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(14, 36, 31, 0.85), rgba(18, 18, 18, 0.95));
+            pointer-events: none;
+        }
+
+        .mission-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1.25rem;
+            height: clamp(120px, 23vh, 250px);
+            /* Dynamically shrinks on shorter screens so it never overflows */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--forest);
+            transition: all 0.4s ease;
+        }
+
+        .mission-card.featured {
+            height: clamp(150px, 30vh, 320px);
+        }
+
+        .mission-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-5px);
+        }
+
+        /* Brighter images configuration in cards via boosted opacity and brightness filter */
+        .mission-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+            filter: brightness(1.15);
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.2;
+            letter-spacing: 0.02em;
+        }
+
+        /* Page 3 Layout configurations */
+        .tech-image-container {
+            width: 60%;
+            height: 100%;
+            background: var(--light-energy-bg);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tech-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+            object-position: center;
+        }
+
+        .tech-info-container-light {
+            width: 40%;
+            height: 100%;
+            background: var(--light-energy-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 4rem;
+        }
+
+        .analytic-thumb-light {
+            width: 100%;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* Input Elements structural configurations */
+        .contact-input-light {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #0f172a;
+            padding: 0.7rem 0.9rem;
+            border-radius: 0.6rem;
+            width: 100%;
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .contact-input-light:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+
+        label.light-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #475569;
+            margin-bottom: 0.2rem;
+            display: block;
+            font-weight: 600;
+        }
+
+        /* Dynamic Navigation Controls configuration */
+        .nav-controls {
+            position: fixed;
+            bottom: 41px;
+            right: 40px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        /* Consistently updated arrow variables across all pages */
+        .arrow-btn {
+            background: #ffffff !important;
+            color: var(--forest) !important;
+            border: 1px solid #cbd5e1 !important;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .arrow-btn:hover,
+        .arrow-btn:active {
+            background: var(--forest) !important;
+            color: #ffffff !important;
+            border-color: var(--forest) !important;
+        }
+
+        @media (max-width: 1024px) {
+
+            body,
+            html {
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+            }
+
+            .page-wrapper {
+                width: 100vw;
+                height: auto;
+                flex-direction: column;
+                transform: none !important;
+            }
+
+            section {
+                width: 100vw;
+                height: auto;
+                min-height: 100vh;
+                flex-direction: column;
+                padding: 0 !important;
+            }
+
+            .tech-image-container {
+                width: 100% !important;
+                height: 35vh !important;
+            }
+
+            .tech-info-container-light {
+                width: 100% !important;
+                height: auto !important;
+                padding: 3rem 2rem !important;
+            }
+
+            .hero-left {
+                width: 100% !important;
+                height: 45vh !important;
+            }
+
+            .hero-right {
+                width: 100% !important;
+                height: auto !important;
+                padding: 3rem 2rem !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="fixed top-0 w-full p-6 px-10 flex justify-between items-center z-50">
+        <a href="javascript:void(0)" onclick="goToPage(0)" class="header-logo-container transition hover:opacity-90">
+            <img src="assets/images/AD_Logo.gif" alt="Logo" class="h-14 object-contain">
+        </a>
+        <a id="header-contact-btn" href="javascript:void(0)" onclick="goToPage(3)"
+            class="text-xs font-bold uppercase tracking-[0.2em] hover:text-blue-600 transition bg-black/40 px-5 py-2 rounded-lg text-white">Contact
+            Us</a>
+    </header>
+
+    <div class="page-wrapper" id="slider">
+
+        <section class="flex flex-col lg:flex-row p-0">
+            <div class="hero-left w-full lg:w-[60%] h-[45vh] lg:h-full bg-black">
+                <img src="assets/images/hero_image.png" class="w-full h-full object-cover" alt="Golf Hero">
+            </div>
+            <div
+                class="hero-right w-full lg:w-[40%] h-auto lg:h-full flex flex-col justify-center px-8 lg:px-20 bg-[var(--light-energy-bg)] pt-28 pb-16">
+                <div class="max-w-md mx-auto lg:mx-0">
+                    <h1 class="punchline text-5xl mb-9 text-slate-900">
+                        We all need a <span class="dost-accent">dost</span> who can support and guide us to become world
+                        champions in sports.
+                    </h1>
+                    <p class="text-sm text-slate-600 mb-8 leading-relaxed tracking-wide">
+                        At Apnadost, we want to make an impact in the sports domain in India and be a part of the growth
+                        cycle, starting with Golf.
+                    </p>
+                    <button onclick="goToPage(1)"
+                        class="group text-sm font-bold uppercase tracking-widest border-b-2 border-blue-600 pb-2 flex items-center gap-4 text-slate-900 hover:text-blue-600 transition-all">
+                        THE MISSION <span class="group-hover:translate-x-2 transition-transform">&rarr;</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="justify-center overflow-hidden bg-[var(--light-energy-bg)] flex items-center">
+
+            <div class="mission-content relative z-10 max-w-6xl px-6 lg:px-10 w-full mx-auto pt-28 pb-10">
+                <div class="mb-6 text-center lg:text-left">
+                    <h2 class="text-4xl font-black mb-2 tracking-tighter text-[var(--forest)]">THE APNADOST MISSION</h2>
+                    <p class="text-emerald-800 font-medium italic text-lg">Apnadost is a friend, who shall support and
+                        guide in sports, starting with Golf.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
+                    <!-- Card 1 -->
+                    <div class="mission-card group cursor-pointer lg:col-span-2">
+                        <img src="assets/images/IMAGE_003.png" alt="Talent Identification" class="transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent group-hover:from-black/95 group-hover:via-black/80 group-hover:to-black/40 transition-all duration-500 p-6 flex flex-col justify-end">
+                            <h3 class="card-text text-white transform transition-transform duration-500 group-hover:-translate-y-1">Early Identification</h3>
+                            <div class="max-h-0 opacity-0 overflow-hidden transition-all duration-500 group-hover:max-h-32 group-hover:opacity-100">
+                                <p class="text-[11px] lg:text-xs text-slate-200 mt-2 font-medium leading-relaxed">Early Stage Talent Identification, Training and Progression</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="mission-card group cursor-pointer lg:col-span-2">
+                        <img src="assets/images/corp_sponsorship.png" alt="Sponsorship Engine" class="transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent group-hover:from-black/95 group-hover:via-black/80 group-hover:to-black/40 transition-all duration-500 p-6 flex flex-col justify-end">
+                            <h3 class="card-text text-white transform transition-transform duration-500 group-hover:-translate-y-1">Sponsorships</h3>
+                            <div class="max-h-0 opacity-0 overflow-hidden transition-all duration-500 group-hover:max-h-32 group-hover:opacity-100">
+                                <p class="text-[11px] lg:text-xs text-slate-200 mt-2 font-medium leading-relaxed">Garner Corporate Sponsorships and Public Donations</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="mission-card group cursor-pointer lg:col-span-2">
+                        <img src="assets/images/IMAGE_005.png" alt="Affordable Grounds" class="transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent group-hover:from-black/95 group-hover:via-black/80 group-hover:to-black/40 transition-all duration-500 p-6 flex flex-col justify-end">
+                            <h3 class="card-text text-white transform transition-transform duration-500 group-hover:-translate-y-1">Practice Grounds</h3>
+                            <div class="max-h-0 opacity-0 overflow-hidden transition-all duration-500 group-hover:max-h-32 group-hover:opacity-100">
+                                <p class="text-[11px] lg:text-xs text-slate-200 mt-2 font-medium leading-relaxed">Facilitate Sports Grounds at Affordable Prices</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="mission-card featured group cursor-pointer lg:col-span-3">
+                        <img src="assets/images/IMAGE_006.png" alt="Local Manufacturing" class="transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent group-hover:from-black/95 group-hover:via-black/80 group-hover:to-black/40 transition-all duration-500 p-6 flex flex-col justify-end">
+                            <h3 class="card-text text-white transform transition-transform duration-500 group-hover:-translate-y-1">Equipments</h3>
+                            <div class="max-h-0 opacity-0 overflow-hidden transition-all duration-500 group-hover:max-h-32 group-hover:opacity-100">
+                                <p class="text-[11px] lg:text-xs text-slate-200 mt-2 font-medium leading-relaxed">Manufacture and Assemble World Class Sports Equipment in India at Affordable Prices</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 5 (Featured) -->
+                    <div class="mission-card featured group cursor-pointer md:col-span-2 lg:col-span-3">
+                        <img src="assets/images/IMAGE_007.png" alt="Advanced Data Processing Suite" class="transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent group-hover:from-black/95 group-hover:via-black/80 group-hover:to-black/40 transition-all duration-500 p-6 flex flex-col justify-end">
+                            <h3 class="card-text text-white transform transition-transform duration-500 group-hover:-translate-y-1">Data Analytics</h3>
+                            <div class="max-h-0 opacity-0 overflow-hidden transition-all duration-500 group-hover:max-h-32 group-hover:opacity-100">
+                                <p class="text-[11px] lg:text-xs text-slate-200 mt-2 font-medium leading-relaxed">Ensure Accurate Data Analytics to capture High Speed Ball, Club and Human Body Movements</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="flex flex-col lg:flex-row p-0 bg-[var(--light-energy-bg)]">
+            <div class="tech-image-container w-full lg:w-[60%] h-[35vh] lg:h-full">
+                <img src="assets/images/IMAGE_002.png" alt="Simulator Tech">
+            </div>
+            <div
+                class="tech-info-container-light w-full lg:w-[40%] h-auto lg:h-full flex flex-col justify-center px-8 lg:px-16 pt-24 pb-16 text-slate-900 bg-[var(--light-energy-bg)]">
+                <h2 class="text-3xl font-black mb-3 text-emerald-800 uppercase tracking-tighter">Simulator Tech</h2>
+                <div class="space-y-4 text-slate-700">
+                    <p class="text-lg leading-relaxed font-normal text-slate-800">
+                        We are building an <span class="text-emerald-700 font-medium">indoor and outdoor golf
+                            simulator</span> that can be used as a launch monitor.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-4 py-1">
+                        <div class="space-y-1">
+                            <img src="assets/images/IMAGE_002_A.png" class="analytic-thumb-light" alt="Biometric View">
+                            <p class="text-[9px] uppercase tracking-widest text-center text-slate-400 font-bold">
+                                Biometric View</p>
+                        </div>
+                        <div class="space-y-1">
+                            <img src="assets/images/IMAGE_002_B.png" class="analytic-thumb-light" alt="Impact View">
+                            <p class="text-[9px] uppercase tracking-widest text-center text-slate-400 font-bold">Impact
+                                View</p>
+                        </div>
+                    </div>
+
+                    <p class="text-xs md:text-sm opacity-90 leading-relaxed">
+                        The firmware comprises of multiple cameras and radar subsystems to track movement of fast moving
+                        golf balls, clubs and drivers along with the human body.
+                    </p>
+                    <p class="text-xs md:text-sm opacity-90 leading-relaxed">
+                        This video is processed via our proprietary Machine Learning based solution that generates
+                        accurate data points.
+                    </p>
+                    <div class="pt-3 border-t border-slate-300">
+                        <p class="text-blue-600 font-bold uppercase tracking-widest text-xs mb-1">Status</p>
+                        <p class="text-xl font-bold text-slate-900">Expected Beta Launch: December 2026</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="justify-center bg-[var(--light-energy-bg)] flex items-center">
+            <div
+                class="max-w-5xl w-full px-6 lg:px-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center mx-auto pt-32 pb-16">
+                <div class="text-slate-900 text-center md:text-left">
+                    <h2 class="text-[10px] tracking-[0.5em] text-emerald-700 font-bold mb-4 uppercase">Get In Touch</h2>
+                    <h3 class="text-5xl font-black mb-6 tracking-tighter text-slate-900">CONTACT US</h3>
+                    <p class="text-xl text-blue-600 font-bold font-mono">hello@apnadost.in</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-xl shadow-slate-300/30">
+                    <form id="contactForm" class="space-y-4">
+                        <div>
+                            <label class="light-label">Name</label>
+                            <input type="text" id="fullName" class="contact-input-light" placeholder="Full Name"
+                                required>
+                        </div>
+                        <div>
+                            <label class="light-label">Email Address</label>
+                            <input type="email" id="workEmail" class="contact-input-light"
+                                placeholder="example@domain.com" required>
+                        </div>
+                        <div>
+                            <label class="light-label">Area of Interest</label>
+                            <select id="areaOfInterest" class="contact-input-light" required>
+                                <option value="" disabled selected>Select an option</option>
+                                <option value="Sponsorship">Sponsorship</option>
+                                <option value="Training">Training</option>
+                                <option value="Partnership">Partnership</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="light-label">Message <span id="charCount"
+                                    class="float-right text-slate-400 font-normal">0/1000</span></label>
+                            <textarea id="message" class="contact-input-light h-24 resize-none"
+                                placeholder="How can we help?" maxlength="1000" required
+                                oninput="document.getElementById('charCount').innerText = this.value.length + '/1000'"></textarea>
+                        </div>
+                        <button type="submit" id="submitBtn"
+                            class="w-full bg-emerald-700 hover:bg-emerald-800 text-white py-3.5 rounded-xl font-bold uppercase tracking-widest text-xs transition-all shadow-md shadow-emerald-700/10 mt-2">
+                            <span id="btnText">Submit</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <div class="nav-controls hidden min-[1025px]:flex">
+        <button id="left-arrow-ui" class="arrow-btn" onclick="prevPage()"><svg width="16" height="16"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M15 18l-6-6 6-6" />
+            </svg></button>
+        <button id="right-arrow-ui" class="arrow-btn" onclick="nextPage()"><svg width="16" height="16"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M9 18l6-6-6-6" />
+            </svg></button>
+    </div>
+
+    <footer id="global-footer"
+        class="fixed bottom-0 w-full p-3 text-center text-[10px] uppercase tracking-[0.25em] z-50 bg-[#f0f7f4] text-slate-500 border-t border-slate-300/50">
+        &copy; 2026 Exsete Consulting. All rights reserved.
+    </footer>
+
+    <script>
+        let currentPos = 0;
+        const totalPages = 4;
+        const slider = document.getElementById('slider');
+        const headerContactBtn = document.getElementById('header-contact-btn');
+
+        function updateSlider() {
+            if (window.innerWidth > 1024) {
+                slider.style.transform = `translateX(-${currentPos * 100}vw)`;
+            }
+
+            // Balancing matching navigation header context layout variables
+            if (currentPos === 0 || currentPos >= 2) {
+                headerContactBtn.classList.remove('text-white', 'bg-black/40');
+                headerContactBtn.classList.add('text-slate-800', 'bg-slate-200/80', 'font-semibold');
+            } else {
+                headerContactBtn.classList.add('text-white', 'bg-black/40');
+                headerContactBtn.classList.remove('text-slate-800', 'bg-slate-200/80', 'font-semibold');
+            }
+
+            // Arrow visibility logic
+            const leftArrow = document.getElementById('left-arrow-ui');
+            const rightArrow = document.getElementById('right-arrow-ui');
+            if (leftArrow) leftArrow.style.display = currentPos === 0 ? 'none' : 'flex';
+            if (rightArrow) rightArrow.style.display = currentPos === totalPages - 1 ? 'none' : 'flex';
+        }
+
+        function goToPage(index) {
+            currentPos = index;
+            if (window.innerWidth <= 1024) {
+                const sections = document.querySelectorAll('section');
+                if (sections[index]) sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                updateSlider();
+            }
+        }
+        function nextPage() { if (currentPos < totalPages - 1) currentPos++; updateSlider(); }
+        function prevPage() { if (currentPos > 0) currentPos--; updateSlider(); }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === "ArrowRight") nextPage();
+            if (e.key === "ArrowLeft") prevPage();
+        });
+
+        window.addEventListener('resize', updateSlider);
+
+        // Initial setup
+        updateSlider();
+
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const originalText = btnText.innerText;
+
+            btn.disabled = true;
+            btnText.innerText = 'Sending...';
+
+            const payload = {
+                fullName: document.getElementById('fullName').value,
+                workEmail: document.getElementById('workEmail').value,
+                areaOfInterest: document.getElementById('areaOfInterest').value,
+                message: document.getElementById('message').value
+            };
+
+            fetch('https://gpu.redgirraffe.com/webhook/contact-us', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            }).then(response => {
+                if (response.ok) {
+                    alert('Message successfully transmitted!');
+                    e.target.reset();
+                    document.getElementById('charCount').innerText = '0/1000';
+                } else {
+                    alert('Failed to transmit message. Please try again.');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }).finally(() => {
+                btn.disabled = false;
+                btnText.innerText = originalText;
+            });
+        });
+    </script>
+</body>
+
+</html>
